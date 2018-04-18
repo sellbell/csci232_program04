@@ -1,10 +1,7 @@
-
-package cointest;
-
-import static csci232_lab07.Coins.getChange;
-import org.junit.Assert;
+package csci232_program04;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 
@@ -19,21 +16,18 @@ import org.junit.Test;
  */
 
 public class CoinTest {
-    
+   /* 
     // unit test #1 - test empty array
-    @Test
-    public void unitTest01(){
-        int ar[] = {};
-        int amt = 1;
-        
-        //Assert.assertEquals();
-        
-        //Exception e = assertThrows(IllegalArgumentException.class, () -> {Coins.getChange(ar, c);} );
-        //assertEquals("Coin array of size 0 is not allowed", e.getMessage());
+    //Test if array sent in is empty
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetChangeEmptyArray() {
+        System.out.println("makeChange empty array");
+        int[] a = {};
+        int b = 42;
+        int[] result = Coins.getChange(a, b);
     }
     
-    
-    // unit test#2 - from lab instructions
+    // unit test#2 - Testing that making change for 42 with US coins works
     @Test
     public void unitTest02(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
@@ -46,11 +40,11 @@ public class CoinTest {
         answer[3] = 1;
         answer[4] = 1;
         
-        Assert.assertArrayEquals(answer, getChange(ar,amt));  // check that arrays match
+        assertArrayEquals(answer, Coins.getChange(ar,amt));  // check that arrays match
     }
     
     
-    // unit test#3
+    // unit test#3 - testing that making change for 97 with US coins works
     @Test
     public void unitTest03(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
@@ -65,11 +59,11 @@ public class CoinTest {
         answer[5] = 1;
         answer[6] = 1;
         
-        Assert.assertArrayEquals(answer, getChange(ar,amt)); // check that arrays match
+        assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match
     }
     
     
-    // unit test#4
+    // unit test#4 - testing that making change for 13 with US coins works
     @Test
     public void unitTest04(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
@@ -81,11 +75,11 @@ public class CoinTest {
         answer[2] = 1;
         answer[3] = 1;
         
-        Assert.assertArrayEquals(answer, getChange(ar,amt)); // check that arrays match  
+        assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match  
     }
  
     
-    // unit test#5
+    // unit test#5 - testing that making change for 34 with US coins works
     @Test
     public void unitTest05(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
@@ -99,10 +93,10 @@ public class CoinTest {
         answer[4] = 1;
         answer[5] = 1;
         
-        Assert.assertArrayEquals(answer, getChange(ar,amt)); // check that arrays match   
+        assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match   
     }
     
-        // unit test#6
+        // unit test#6 - testing that making change for 100 with US coins works
     @Test
     public void unitTest06(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
@@ -114,6 +108,31 @@ public class CoinTest {
         answer[2] = 25;
         answer[3] = 25;
         
-        Assert.assertArrayEquals(answer, getChange(ar,amt)); // check that arrays match   
+        assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match   
+    }
+    //change to be found is not a positive number
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetChangeNegativeChange() {
+        System.out.println("makeChange negative change requested");
+        int[] a = {1,5,10,25};
+        int b = -42;
+        int[] result = Coins.getChange(a, b);
+    }
+*/
+    @Test
+    public void testGetChangenonUS(){
+        System.out.println("Get change for non US denominations");
+        int[] a = {1,5,10,21,25};
+        int b = 63;
+        int[] answer = new int[b]; // array holding correct answer - size of amount
+        answer[0] = 21; // fill answer array with correct change
+        answer[1] = 21;
+        answer[2] = 21;
+        int [] result = Coins.getChange(a,b);
+//        for(int i = 0; 0 < ; i++)
+//        {
+//            System.out.println(result[i]);
+//        }
+        assertArrayEquals(answer,result);
     }
 }
