@@ -11,9 +11,13 @@ public class Coins {
     
     // method that makes change given an amount and set of coin denominations  
     public static int[] getChange(int[] coins, int amount){
-        // thow exception if coin array is empty
+        // throw exception if coin array is empty
         if(coins.length == 0){
             throw new IllegalArgumentException("Coin array is empty, cannot make change");
+        }
+        if(amount < 0)
+        {
+            throw new IllegalArgumentException("Change requested must be greater than 0");
         }
         
         int[] combos = new int[amount + 1]; // make array big enough to hold combos for amount increments
@@ -23,14 +27,26 @@ public class Coins {
         combos[0] = 1;
        
         // loop thru each 'coin' in denomination array
-        for(int coin : coins){
+        for(int j = 0; j < coins.length; j++){
             for(int i = 1; i < combos.length; i++){
-                if(i >= coin){
-                    combos[i] += combos[i - coin];
-                    lastUsed[i] = coin;
-                    //System.out.println("coin # "+ i + " " + coin);
+                System.out.println(coins[j]);
+                if(i < coins[j]){
+                    combos[i] = coins[j];//+= combos[i - coins[j]];
+                    lastUsed[i] = coins[j];
+                   System.out.println("coin # "+ i + " " + combos[i] + " is in combos");
+//                    System.out.println("coin # "+ i + " " + coin);
+                }
+                else{
+                    combos[i] = 1;
                 }
             }
+        
+        }
+        System.out.println("combos.length is " + combos.length);
+        for(int k = 0; k < combos.length-1; k++)
+        {
+            System.out.println("coin # "+ k + " " + combos[k] + " is in combos");
+            //System.out.println("coin # "+ k + " " + coins[k]);
         }
         
         int[] coinsUsed = new int[amount]; // array to hold list of coins
