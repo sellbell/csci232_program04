@@ -19,13 +19,28 @@ public class Coins {
         {
             throw new IllegalArgumentException("Change requested must be greater than 0");
         }
-        
+        int coinArray = new int[100];
         int[] combos = new int[amount + 1]; // make array big enough to hold combos for amount increments
         int[] lastUsed = new int[amount + 1]; // array to hold what the last coin used was
         
         // set first combo to 1
         combos[0] = 1;
-       
+        
+        
+       /********************
+        try this
+        for each loop //loop through each coin
+        //if the number to be found is divisible by the coin value then put that coin value in for that spot in the array
+        //this should put 5 in 5, 10 in 10 , 21 in 21, etc. if there is a coin with a value of 21
+        if(i % coin == 0) 
+            if(coinArray[i] == null || coin > coinArray[i]) //if the array spot is null then it's empty so put a coin in if it's not empty put the highest value coin it can take in
+            {
+                coinsArray[i] = coin;
+            }
+       ***********************/
+        
+        
+        
         // loop thru each 'coin' in denomination array
         for(int j = 0; j < coins.length; j++){
             for(int i = 1; i < combos.length; i++){
