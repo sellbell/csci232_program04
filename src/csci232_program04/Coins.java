@@ -1,8 +1,28 @@
 package csci232_program04;
 
 /**
- * Author: Selene Smith
- * Date: 4/13/18
+ * Authors: Selene Smith, Dallas LeGrande
+ * Date: 4/11/18
+ *
+ * Overview: 
+ * - Program intended to better understand dynamic 
+ *   programming and unit testing with JUnit
+ *
+ * - Includes a class to hold JUnit tests w/
+ *   at least 4 test cases.
+ *   > 1 test case to expect an exception when sent 
+ *     an empty array of coins as parameter
+ *
+ * - Includes a class for a method with 2 parameters:
+ *   1. Array of coins (US currency = 1, 5, 10, 25)
+ *   2. Amount for which to make change
+ *   which returns a list of coins for that amount
+ *   > Throws an exception if the array of coins sent
+ *     in parameter is empty
+ *   > Uses dynamic programming
+ * 
+ * - Has no main method: execution triggered only
+ *   by JUnit test cases
  */
 
 public class Coins {
@@ -10,62 +30,44 @@ public class Coins {
 
     
     // method that makes change given an amount and set of coin denominations  
-    public static int[] getChange(int[] coins, int amount){
+    public static int[] getChange(int[] coins, int total){
         // throw exception if coin array is empty
         if(coins.length == 0){
             throw new IllegalArgumentException("Coin array is empty, cannot make change");
         }
-        if(amount < 0)
+        if(total < 0) //if the change amount requested is less than zero throw an exception
         {
             throw new IllegalArgumentException("Change requested must be greater than 0");
         }
         
-        int[] combos = new int[amount + 1]; // make array big enough to hold combos for amount increments
-        int[] lastUsed = new int[amount + 1]; // array to hold what the last coin used was
-        
-        // set first combo to 1
-        combos[0] = 1;
-       
-        // loop thru each 'coin' in denomination array
-        for(int j = 0; j < coins.length; j++){
-            for(int i = 1; i < combos.length; i++){
-                System.out.println(coins[j]);
-                if(i < coins[j]){
-                    combos[i] = coins[j];//+= combos[i - coins[j]];
-                    lastUsed[i] = coins[j];
-                   System.out.println("coin # "+ i + " " + combos[i] + " is in combos");
-//                    System.out.println("coin # "+ i + " " + coin);
-                }
-                else{
-                    combos[i] = 1;
-                }
-            }
-        
+        int minCoins[] = new int[total + 1]; //keeps track of the minimum amount of coins needed
+        int coinsUsed[] = new int[total + 1]; //keeps track of the coins that are used to make the change
+        minCoins[0] = 0; //takes zero coins to make change of 0
+        for(int i=1; i <= total; i++){
+            minCoins[i] = 100; //starts with a large amount of coins being needed to make the change. While U.S. coins would have a max of 9 this is higher to account for other denominations
         }
-        System.out.println("combos.length is " + combos.length);
-        for(int k = 0; k < combos.length-1; k++)
-        {
-            System.out.println("coin # "+ k + " " + combos[k] + " is in combos");
-            //System.out.println("coin # "+ k + " " + coins[k]);
+        for(int j=0; j < coins.length; j++){
+            for(int i=1; i <= total; i++){
+                if(i >= coins[j]){ //if i is greater than or equal to the coin value that's at spot j
+                    //if the minimum number of coins at spot (i - the coin value at spot j) + 1 is less than the minimum number of coins at spot i
+                    //if the minimum amount of coins needed for the current value is less than the coins needed for the previous value then 
+                    //change the number of coins to the smaller value and store the value of the coin in the coins used array
+                    if (minCoins[i - coins[j]] + 1 < minCoins[i]) {
+                        minCoins[i] = minCoins[i - coins[j]] + 1;
+                        coinsUsed[i] = coins[j];
+                    }//end of inner if
+                }//end of outer if
+            }// end of inner for loop
+        } //end of outer for loop
+        
+        /* prints the array spot of the coins used and the value in that spot. good for testing
+        for(int j = 0; j < coinsUsed.length; j++){
+        System.out.println("This is coinsUsed array in spot " + j + " " + coinsUsed[j]);
         }
-        
-        int[] coinsUsed = new int[amount]; // array to hold list of coins
-        int counter = 0; // the loop counter for lastUsed array
-        
-        for(int n = amount; n > 0;){
-            //System.out.print(lastUsed[n] + ", ");
-            coinsUsed[counter] = lastUsed[n];
-            counter++;
-            
-            n = n - lastUsed[n];
-        }
-        //System.out.println();
-        
-        //return combos[amount];
+        */
         return coinsUsed;
     }
 }
-
 
 
 /* TEST STUFF FOR ME */
