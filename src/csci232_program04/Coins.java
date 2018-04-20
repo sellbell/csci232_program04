@@ -59,12 +59,13 @@ public class Coins {
                 }//end of outer if
             }// end of inner for loop
         } //end of outer for loop
-        int coinsUsed[] = new int[total];
-        int counter = 0;
-        for(int n = total; n > 0; counter++)
+        
+        int coinsUsed[] = new int[total];//array to hold the coins being used
+        int counter = 0; //variable to keep track of the array spot in coinsUsed
+        for(int n = total; n > 0; counter++) //goes through the all change array decrementing by the value of the last coin used to make change
         {
-            coinsUsed[counter] = allChange[n];
-            n = n - allChange[n];
+            coinsUsed[counter] = allChange[n]; //stores the coin used to make change in the new aray
+            n = n - allChange[n]; //decrements the change needed by the value of the last coin
         }
         /* //prints the array spot of the coins used and the value in that spot. good for testing
         for(int j = 0; j < coinsUsed.length; j++){
