@@ -77,23 +77,23 @@ public class CoinTest {
         
         assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match  
     }
- 
+ */
     
     // unit test#5 - testing that making change for 34 with US coins works
     @Test
     public void unitTest05(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
         int amt = 34;// amount to make change for
-        
-        int[] answer = new int[amt]; // array holding correct answer - size of amount
-        answer[0] = 25; // fill answer array with correct change
-        answer[1] = 5;
+        Coins.getChange(ar);
+        int[] answer = new int[14]; // array holding correct answer - size of amount
+        answer[0] = 1; // fill answer array with correct change
+        answer[1] = 1;
         answer[2] = 1;
         answer[3] = 1;
-        answer[4] = 1;
-        answer[5] = 1;
+        answer[4] = 5;
+        answer[5] = 25;
         
-        assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match   
+        assertArrayEquals(answer, Coins.makeChange(amt)); // check that arrays match   
     }
     
         // unit test#6 - testing that making change for 100 with US coins works
@@ -101,34 +101,36 @@ public class CoinTest {
     public void unitTest06(){
         int[] ar = {1,5,10,25};  // array of US denomination coins
         int amt = 100;// amount to make change for
-        
-        int[] answer = new int[amt]; // array holding correct answer - size of amount
+        Coins.getChange(ar, amt);
+        int[] answer = new int[14]; // array holding correct answer - size of amount
         answer[0] = 25; // fill answer array with correct change
         answer[1] = 25;
         answer[2] = 25;
         answer[3] = 25;
         
-        assertArrayEquals(answer, Coins.getChange(ar,amt)); // check that arrays match   
+        assertArrayEquals(answer, Coins.makeChange(amt)); // check that arrays match   
     }
     //change to be found is not a positive number
     @Test(expected = IllegalArgumentException.class)
     public void testGetChangeNegativeChange() {
         System.out.println("makeChange negative change requested");
         int[] a = {1,5,10,25};
+        Coins.getChange(a);
         int b = -42;
-        int[] result = Coins.getChange(a, b);
+        int[] result = Coins.makeChange(b);
     }
-*/
+
     @Test
     public void testGetChangenonUS(){
         System.out.println("Get change for non US denominations");
         int[] a = {1,5,10,21,25};
         int b = 63;
-        int[] answer = new int[b]; // array holding correct answer - size of amount
+        Coins.getChange(a);
+        int[] answer = new int[14]; // array holding correct answer - size of amount
         answer[0] = 21; // fill answer array with correct change
         answer[1] = 21;
         answer[2] = 21;
-        int [] result = Coins.getChange(a,b);
+        int [] result = Coins.makeChange(b);
 //        for(int i = 0; 0 < ; i++)
 //        {
 //            System.out.println(result[i]);
