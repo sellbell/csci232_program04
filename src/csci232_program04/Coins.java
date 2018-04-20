@@ -41,7 +41,7 @@ public class Coins {
         }
         
         int minCoins[] = new int[total + 1]; //keeps track of the minimum amount of coins needed
-        int coinsUsed[] = new int[total + 1]; //keeps track of the coins that are used to make the change
+        int allChange[] = new int[total + 1]; //keeps track of the coins that are used to make the change
         minCoins[0] = 0; //takes zero coins to make change of 0
         for(int i=1; i <= total; i++){
             minCoins[i] = 100; //starts with a large amount of coins being needed to make the change. While U.S. coins would have a max of 9 this is higher to account for other denominations
@@ -54,31 +54,23 @@ public class Coins {
                     //change the number of coins to the smaller value and store the value of the coin in the coins used array
                     if (minCoins[i - coins[j]] + 1 < minCoins[i]) {
                         minCoins[i] = minCoins[i - coins[j]] + 1;
-                        coinsUsed[i] = coins[j];
+                        allChange[i] = coins[j];
                     }//end of inner if
                 }//end of outer if
             }// end of inner for loop
         } //end of outer for loop
-        
-        /* prints the array spot of the coins used and the value in that spot. good for testing
+        int coinsUsed[] = new int[total];
+        int counter = 0;
+        for(int n = total; n > 0; counter++)
+        {
+            coinsUsed[counter] = allChange[n];
+            n = n - allChange[n];
+        }
+        /* //prints the array spot of the coins used and the value in that spot. good for testing
         for(int j = 0; j < coinsUsed.length; j++){
         System.out.println("This is coinsUsed array in spot " + j + " " + coinsUsed[j]);
-        }
-        */
+        }*/
+        
         return coinsUsed;
     }
 }
-
-
-/* TEST STUFF FOR ME */
-
-//    public static void main(String[] args){
-//        int[] tmp = getChange(new int[]{1,5,10,25}, 77);
-//        
-//        System.out.print("Coins: ");
-//        for(int i =0; i < tmp.length; i++){
-//            if(tmp[i] != 0){
-//                System.out.print(tmp[i] + ", ");
-//            }
-//        }
-//    }
